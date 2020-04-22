@@ -2,13 +2,13 @@
 
  ------------------------- Python Console commands to interact with API: -------------------------
 from posts.models import Post
-from posts.api.serializers import PostSerializer
+from posts.serializers import PostSerializer
 obj = Post.objects.all().first()
 print(obj)
 
 
 obj_data = PostSerializer(obj)
-obj_data.data
+print(obj_data.data)
 
 
 // Post creating
