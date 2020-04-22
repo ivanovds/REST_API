@@ -1,0 +1,48 @@
+
+
+ ------------------------- Python Console commands to interact with API: -------------------------
+from posts.models import Post
+from posts.api.serializers import PostSerializer
+obj = Post.objects.all().first()
+print(obj)
+
+
+obj_data = PostSerializer(obj)
+obj_data.data
+
+
+// Post creating
+data = {
+    'user': 2,
+    'content': "new content",
+    'publish': "2020-4-19",
+}
+
+new_item = PostSerializer(data=data)
+if new_item.is_valid():
+    new_item.save()
+else:
+    print(new_item.errors)
+
+ // Post creating
+ http http://127.0.0.1:8000/api/posts/create/ user=2, content='shell test', publish='2020-4-19'
+
+
+
+from django.contrib.auth.models import User
+from accounts.api.serializers import UserListCreateSerializer
+obj = User.objects.all().first()
+print(obj)
+
+
+
+ ------------------------- cURL commands: -------------------------
+
+Authentication:
+curl -X POST -d "username=admin&password=1234" http://127.0.0.1:8000/api/auth/token/
+
+Using of the returned access token to prove authentication for a protected view:
+curl -H "Authorization: Bearer *access token*" http://127.0.0.1:8000/api/users/
+
+Token refreshing:
+curl -X POST -d "refresh=*refresh token*" http://127.0.0.1:8000/api/auth/token/refresh/
