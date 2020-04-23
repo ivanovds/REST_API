@@ -1,6 +1,31 @@
 
+------------------------ Console HTTPie commands:
+ http -a admin:1234 POST "http://127.0.0.1:8000/api/v1/auth/token/" password='1234', username='admin'
+ http -a admin:1234 POST "http://127.0.0.1:8000/api/v1/posts/1/likes/"
 
- ------------------------- Python Console commands to interact with API: -------------------------
+
+
+With JWT:
+
+http GET http://127.0.0.1:8000/api/v1/users/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
+http GET http://127.0.0.1:8000/api/v1/users/1/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
+http GET http://127.0.0.1:8000/api/v1/users/1/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
+
+http POST http://127.0.0.1:8000/api/v1/users/ 'username=test_user' 'password=1234'
+
+
+http DELETE http://127.0.0.1:8000/api/v1/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
+http POST http://127.0.0.1:8000/api/v1/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
+http DELETE http://127.0.0.1:8000/api/v1/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
+http GET http://127.0.0.1:8000/api/v1/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
+
+
+
+
+
+ ------------------------- Python Shell commands to interact with API: -------------------------
+ py manage.py shell
+
 from posts.models import Post
 from posts.serializers import PostSerializer
 obj = Post.objects.all().first()
@@ -29,6 +54,7 @@ else:
 
 
 
+
 from django.contrib.auth.models import User
 from accounts.api.serializers import UserListCreateSerializer
 obj = User.objects.all().first()
@@ -39,10 +65,10 @@ print(obj)
  ------------------------- cURL commands: -------------------------
 
 Authentication:
-curl -X POST -d "username=admin&password=1234" http://127.0.0.1:8000/api/auth/token/
+curl -X POST -d "username=admin&password=1234" http://127.0.0.1:8000/api/v1/auth/token/
 
 Using of the returned access token to prove authentication for a protected view:
-curl -H "Authorization: Bearer *access token*" http://127.0.0.1:8000/api/users/
+curl -H "Authorization: Bearer *access token*" http://127.0.0.1:8000/api/v1/users/
 
 Token refreshing:
-curl -X POST -d "refresh=*refresh token*" http://127.0.0.1:8000/api/auth/token/refresh/
+curl -X POST -d "refresh=*refresh token*" http://127.0.0.1:8000/api/v1/auth/token/refresh/

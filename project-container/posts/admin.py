@@ -14,7 +14,7 @@ from .models import (
 
 
 class PostModelAdmin(admin.ModelAdmin):
-    list_display = ["user", "content", "timestamp"]
+    list_display = ["id", "user", "content", "timestamp"]
     list_filter = ["timestamp"]
     search_fields = ["user", "content"]
 

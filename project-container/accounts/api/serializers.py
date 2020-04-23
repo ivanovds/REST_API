@@ -9,7 +9,11 @@ from rest_framework.serializers import (
 class UserDetailSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'last_login']
+        fields = [
+            'id',
+            'username',
+            'last_login'
+        ]
 
 
 class UserListCreateSerializer(ModelSerializer):
@@ -18,7 +22,13 @@ class UserListCreateSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'confirm_password', 'last_login']
+        fields = [
+            'id',
+            'username',
+            'password',
+            'confirm_password',
+            'last_login'
+        ]
         extra_kwargs = {
             "last_login": {"read_only": True},
         }

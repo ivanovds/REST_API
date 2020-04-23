@@ -4,15 +4,12 @@ from rest_framework.permissions import (
     IsAuthenticated,
     AllowAny
 )
-from .serializers import (
-    PostSerializer,
-)
-from posts.models import (
-    Post,
-)
+from likes.api.mixins import LikeMixin
+from .serializers import PostSerializer
+from posts.models import Post
 
 
-class PostViewSet(ModelViewSet):
+class PostViewSet(LikeMixin, ModelViewSet):
     # permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]
     serializer_class = PostSerializer

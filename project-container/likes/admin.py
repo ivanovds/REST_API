@@ -14,9 +14,9 @@ from .models import (
 
 
 class PostLikeModelAdmin(admin.ModelAdmin):
-    # list_display = ["post", "user", "like", "dislike"]
-    # list_filter = ["post"]
-    # search_fields = ["post", "user"]
+    list_display = ["user", "content_type", "object_id"]
+    list_filter = ["object_id", "content_type"]
+    search_fields = ["user", "object_id"]
 
     class Meta:
         model = Like
