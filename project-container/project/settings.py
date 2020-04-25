@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'likes.apps.LikesConfig',
     'posts.apps.PostsConfig',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -146,6 +147,6 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=2),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=5 ),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }

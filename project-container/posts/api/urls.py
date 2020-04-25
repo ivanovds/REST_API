@@ -13,10 +13,8 @@ urlpatterns = [
     path('<int:pk>/likes/', PostViewSet.as_view({
         'get': 'fans',
         'post': 'like',
-        'delete': 'unlike'
-    }), name='post-fans-api'),
-    # path('<int:pk>/liked/', PostViewSet.as_view({'post': 'like'}), name='post-like-api'),
-    # path('<int:pk>/unliked/', PostViewSet.as_view({'post': 'unlike'}), name='post-unlike-api'),
+        'delete': 'unlike'}),
+         name='post-fans-api'),
 ]
 
 # router = DefaultRouter()

@@ -11,7 +11,7 @@ from rest_framework.permissions import (
 
 class LikeMixin(object):
     """
-       Apply this mixin to any view or viewset to ???????.
+       Apply this mixin to any view or viewset to add a like-unlike logic.
     """
     # permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]

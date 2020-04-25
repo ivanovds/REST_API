@@ -2,6 +2,7 @@
   <dictionary name="Anton">
     <words>
       <w>apipatterns</w>
+      <w>filterset</w>
       <w>navbar</w>
       <w>unliked</w>
       <w>viewset</w>

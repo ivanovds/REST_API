@@ -1,17 +1,15 @@
 
 ------------------------ Console HTTPie commands:
- http -a admin:1234 POST "http://127.0.0.1:8000/api/v1/auth/token/" password='1234', username='admin'
  http -a admin:1234 POST "http://127.0.0.1:8000/api/v1/posts/1/likes/"
 
 
 
 With JWT:
+http -a admin:1234 POST "http://127.0.0.1:8000/api/v1/auth/token/" password='1234', username='admin'
 
 http GET http://127.0.0.1:8000/api/v1/users/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
 http GET http://127.0.0.1:8000/api/v1/users/1/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
-http GET http://127.0.0.1:8000/api/v1/users/1/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
 
-http POST http://127.0.0.1:8000/api/v1/users/ 'username=test_user' 'password=1234'
 
 
 http DELETE http://127.0.0.1:8000/api/v1/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
