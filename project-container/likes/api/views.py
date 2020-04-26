@@ -11,7 +11,10 @@ from django.db.models.functions import TruncDay
 from django.db.models import Count, DateField
 from rest_framework.generics import ListAPIView
 
-from .serializers import LikeSerializer
+from .serializers import (
+    LikeSerializer,
+    LikeAnalyticsSerializer
+)
 from likes.models import Like
 
 
@@ -33,17 +36,13 @@ class LikeAPIView(ListAPIView):
     """
     # permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]
-    serializer_class = LikeSerializer
+    serializer_class = LikeAnalyticsSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = LikeFilter
 
-    likes_per_day = Like.objects.annotate(day=TruncDay('timestamp', output_field=DateField()),)\
-        .values('day').annotate(likes=Count('id'))
-    for like in likes_per_day:
-        print(like['day'], like['likes'])
-    print(likes_per_day)
-    print("-----")
-    # queryset = likes_per_day
-    queryset = Like.objects.all()
-    print(queryset)
+    def get_queryset(self):
+        likes_per_day = Like.objects.annotate(date=TruncDay('timestamp', output_field=DateField()),)\
+            .values('date').annotate(likes_amount=Count('id'))
+        return likes_per_day
+
 
