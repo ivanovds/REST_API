@@ -8,9 +8,7 @@ and get a feel for whether you have the right data.
 
 
 from django.contrib import admin
-from .models import (
-    Post,
-)
+from .models import Post
 
 
 class PostModelAdmin(admin.ModelAdmin):

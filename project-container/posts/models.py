@@ -19,7 +19,7 @@ def upload_location(instance, filename):
 
 class Post(models.Model):
     """Creates a model Post"""
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     content = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to=upload_location,

@@ -7,11 +7,12 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
+from rest_framework_jwt.views import (
+    obtain_jwt_token,
+    refresh_jwt_token,
 )
 from posts.api.views import api_root
+from accounts.api.views import ObtainJWTView
 
 
 apipatterns = [
@@ -19,8 +20,8 @@ apipatterns = [
     path('analytics/', include('likes.api.urls'), name='api-analytics'),
     path('users/', include('accounts.api.urls'), name='api-users'),
     path('posts/', include('posts.api.urls'), name='api-posts'),
-    path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/token/', ObtainJWTView.as_view(), name='token_obtain_pair'),
+    path('auth/token/refresh/', refresh_jwt_token, name='token_refresh'),
 ]
 
 urlpatterns = [

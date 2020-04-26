@@ -2,14 +2,16 @@ from rest_framework.generics import (
     RetrieveAPIView,
     ListCreateAPIView,
 )
-
 from django.contrib.auth.models import User
+from rest_framework.permissions import (
+    IsAuthenticated,
+)
+from rest_framework_jwt.views import ObtainJSONWebToken
+
 from .serializers import (
     UserDetailSerializer,
     UserListCreateSerializer,
-)
-from rest_framework.permissions import (
-    IsAuthenticated,
+    JWTSerializer,
 )
 from .permissions import IsAuthenticatedOrWriteOnly
 
@@ -25,3 +27,6 @@ class UserDetailAPIView(RetrieveAPIView):
     serializer_class = UserDetailSerializer
     permission_classes = [IsAuthenticated]
 
+
+class ObtainJWTView(ObtainJSONWebToken):
+    serializer_class = JWTSerializer

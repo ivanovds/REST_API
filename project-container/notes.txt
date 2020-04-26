@@ -2,20 +2,24 @@
 ------------------------ Console HTTPie commands:
  http -a admin:1234 POST "http://127.0.0.1:8000/api/v1/posts/1/likes/"
 
-
+http -a user:parol1234 POST "http://127.0.0.1:8000/api/users/"  username='user_test_signals2', password='parol1234', confirm_password='parol1234'
 
 With JWT:
-http -a admin:1234 POST "http://127.0.0.1:8000/api/v1/auth/token/" password='1234', username='admin'
+http -a admin:1234 POST "http://127.0.0.1:8000/api/auth/token/" password='1234', username='admin'
+http -a user:parol1234 POST "http://127.0.0.1:8000/api/auth/token/" password='parol1234', username='user'
 
-http GET http://127.0.0.1:8000/api/v1/users/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
-http GET http://127.0.0.1:8000/api/v1/users/1/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
+http GET http://127.0.0.1:8000/api/users/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZlZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
+http GET http://127.0.0.1:8000/api/users/1/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZlZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
 
 
 
-http DELETE http://127.0.0.1:8000/api/v1/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
-http POST http://127.0.0.1:8000/api/v1/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
-http DELETE http://127.0.0.1:8000/api/v1/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
-http GET http://127.0.0.1:8000/api/v1/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg3ODQ3NTU5LCJqdGkiOiJiMWU3M2Q4YTM5YzM0ZDQzYjI3MDZiN2E2NWM3OWY4ZSIsInVzZXJfaWQiOjF9.uJ3K4JS0FRuQ2ZII0vgSR0BG6Zp8Pr_Pv9ivyX2LmzY'
+http DELETE http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZlZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
+http POST http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZl
+ZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
+http DELETE http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZl
+ZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
+http GET http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZl
+ZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
 
 
 
