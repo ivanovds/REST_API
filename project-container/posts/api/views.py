@@ -16,18 +16,12 @@ from posts.models import Post
 
 
 class PostViewSet(LikeMixin, ModelViewSet):
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
+    # permission_classes = [AllowAny]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(publish__lte=timezone.now())
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def api_root(request, format=None):
 
-    return Response({
-        'users': reverse('user-list-api', request=request, format=format),
-        'posts': reverse('post-list-api', request=request, format=format),
-        'analytics': reverse('likes-list-api', request=request, format=format),
-    })

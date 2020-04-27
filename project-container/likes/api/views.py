@@ -34,8 +34,8 @@ class LikeAPIView(ListAPIView):
 
       Example url/api/analytics/?date_from=2020-02-02&date_to=2020-02-15
     """
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
+    # permission_classes = [AllowAny]
     serializer_class = LikeAnalyticsSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = LikeFilter

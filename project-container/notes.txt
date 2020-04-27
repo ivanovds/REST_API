@@ -1,27 +1,29 @@
 
+http://127.0.0.1:8000/api/analytics/?date_from=2020-04-23&date_to=2020-04-26
+
 ------------------------ Console HTTPie commands:
  http -a admin:1234 POST "http://127.0.0.1:8000/api/v1/posts/1/likes/"
 
-http -a user:parol1234 POST "http://127.0.0.1:8000/api/users/"  username='user_test_signals2', password='parol1234', confirm_password='parol1234'
+http POST "http://127.0.0.1:8000/api/users/"  username='user_test_signals2', password='parol1234', confirm_password='parol1234'
 
 With JWT:
-http -a admin:1234 POST "http://127.0.0.1:8000/api/auth/token/" password='1234', username='admin'
-http -a user:parol1234 POST "http://127.0.0.1:8000/api/auth/token/" password='parol1234', username='user'
+http POST "http://127.0.0.1:8000/api/auth/token/" password='1234', username='admin'
+http POST "http://127.0.0.1:8000/api/auth/token/" password='parol1234', username='user'
 
-http GET http://127.0.0.1:8000/api/users/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZlZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
-http GET http://127.0.0.1:8000/api/users/1/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZlZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
+http GET http://127.0.0.1:8000/api/users/ 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g'
+http GET http://127.0.0.1:8000/api/users/1/ 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g'
 
-
-
-http DELETE http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZlZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
-http POST http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZl
-ZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
-http DELETE http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZl
-ZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
-http GET http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTg4MzExODg5LCJqdGkiOiI3NWZl
-ZDFkZDEwMmQ0ZDI4YWU2NWFjNDI3NjRlZWUxNyIsInVzZXJfaWQiOjF9.FSSGqW2GVxuHW32MJuqmLK2YPoRbW6x3ohSkxJ56GZw'
+http GET http://127.0.0.1:8000/api/analytics/ 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g'
+http GET http://127.0.0.1:8000/api/analytics/?date_from=2020-04-23"&"date_to=2020-04-26 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g'
 
 
+http POST http://127.0.0.1:8000/api/posts/ 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g' content='jwt test1', publish='2020-4-27'
+
+
+http DELETE http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g'
+http POST http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g'
+http DELETE http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g'
+http GET http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g'
 
 
 
@@ -70,7 +72,10 @@ Authentication:
 curl -X POST -d "username=admin&password=1234" http://127.0.0.1:8000/api/v1/auth/token/
 
 Using of the returned access token to prove authentication for a protected view:
-curl -H "Authorization: Bearer *access token*" http://127.0.0.1:8000/api/v1/users/
+curl -H "Authorization: JWT  *access token*" http://127.0.0.1:8000/api/v1/users/
 
 Token refreshing:
 curl -X POST -d "refresh=*refresh token*" http://127.0.0.1:8000/api/v1/auth/token/refresh/
+
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTg4MTgwMDIxLCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg4MDA3MjIxfQ.7kJhJ4xAa6kKaxZ-urdoVNtKtX_CLg75_wQ5C8WwGug

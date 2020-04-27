@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'django_filters',
     'rest_framework',
+    'rest_framework_jwt'
 ]
 
 MIDDLEWARE = [
@@ -137,38 +138,25 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PARSER_CLASSES': [
     #     'rest_framework.parsers.JSONParser',
     # ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # ],
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ],
-
-}
-
-REST_FRAMEWORK = {
-    # 'DEFAULT_RENDERER_CLASSES': [
-    #     'rest_framework.renderers.JSONRenderer',
-    # ],
-    # 'DEFAULT_PARSER_CLASSES': [
-    #     'rest_framework.parsers.JSONParser',
-    # ],
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+
     ),
 }
 
 JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+    'project.views.jwt_response_payload_handler',
 
     'JWT_EXPIRATION_DELTA': timedelta(days=2),
 
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
+
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
 
 
 }

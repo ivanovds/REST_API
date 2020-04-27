@@ -11,7 +11,7 @@ from rest_framework_jwt.views import (
     obtain_jwt_token,
     refresh_jwt_token,
 )
-from posts.api.views import api_root
+from .views import api_root
 from accounts.api.views import ObtainJWTView
 
 

@@ -1,6 +1,12 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, user_logged_in
-from rest_framework_jwt.serializers import JSONWebTokenSerializer, jwt_payload_handler, jwt_encode_handler
+from rest_framework_jwt.serializers import (
+    JSONWebTokenSerializer,
+    jwt_payload_handler,
+    jwt_encode_handler,
+
+)
+
 from rest_framework.serializers import (
     ModelSerializer,
     CharField,
@@ -80,5 +86,3 @@ class UserListCreateSerializer(ModelSerializer):
         user_obj.set_password(password)
         user_obj.save()
         return validated_data
-
-

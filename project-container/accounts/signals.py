@@ -1,16 +1,29 @@
-from django.contrib.auth.models import User
 import logging
+from django.utils import timezone
 from django.core.signals import request_started
-from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.contrib.auth import authenticate, user_logged_in, user_login_failed
+from django.contrib.auth import user_logged_in, user_login_failed
+from rest_framework_jwt.serializers import jwt_decode_handler
+from django.contrib.auth.models import User
 
-from .models import UserLoginActivityLog
+from .models import UserLoginActivityLog, UserRequestActivityLog
+from project.settings import JWT_AUTH
+
+JWT_AUTH_HEADER_PREFIX = JWT_AUTH['JWT_AUTH_HEADER_PREFIX']
 
 
 @receiver(request_started)
-def save_last_request_datetime(sender, environ, **kwargs):
-    print(sender)
+def log_last_request_datetime(sender, environ, **kwargs):
+    print(environ)
+    if JWT_AUTH_HEADER_PREFIX in environ['HTTP_AUTHORIZATION']:
+        token = environ['HTTP_AUTHORIZATION'].split(' ')[-1]
+        try:
+            payload = jwt_decode_handler(token)
+            last_request_datetime, created = UserRequestActivityLog.objects.update_or_create(
+                user=User.objects.get(username=payload['username']),
+            )
+        except Exception as e:
+            logging.error("log_last_request_datetime: %s" % e)
 
 
 @receiver(user_logged_in)
@@ -24,7 +37,11 @@ def log_user_logged_in_success(sender, user, request, **kwargs):
                       'user': user,
                       'login_username': user.username,
                       'user_agent_info': user_agent_info,
+                      'login_datetime': timezone.now(),
                       },
+        )
+        last_request_datetime, created = UserRequestActivityLog.objects.update_or_create(
+            user=user,
         )
     except Exception as e:
         logging.error("log_user_logged_in request: %s, error: %s" % (request, e))
@@ -39,10 +56,10 @@ def log_user_logged_in_failed(sender, credentials, request, **kwargs):
             status=UserLoginActivityLog.FAILED,
             defaults={'login_IP': get_client_ip(request),
                       'user_agent_info': user_agent_info,
+                      'login_datetime': timezone.now(),
                       },
         )
     except Exception as e:
-        # log the error
         logging.error("log_user_logged_in request: %s, error: %s" % (request, e))
 
 
