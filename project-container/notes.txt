@@ -2,13 +2,12 @@
 http://127.0.0.1:8000/api/analytics/?date_from=2020-04-23&date_to=2020-04-26
 
 ------------------------ Console HTTPie commands:
- http -a admin:1234 POST "http://127.0.0.1:8000/api/v1/posts/1/likes/"
-
-http POST "http://127.0.0.1:8000/api/users/"  username='user_test_signals2', password='parol1234', confirm_password='parol1234'
 
 With JWT:
 http POST "http://127.0.0.1:8000/api/auth/token/" password='1234', username='admin'
 http POST "http://127.0.0.1:8000/api/auth/token/" password='parol1234', username='user'
+http POST "http://127.0.0.1:8000/api/auth/token/refresh/" token='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTg4MjQ1MjczLCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg4MDcyNDczfQ.nmhnSqR4xnu45KKUOdDe48SubhkHi9dCt24_XL7u0Q8'
+
 
 http GET http://127.0.0.1:8000/api/users/ 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g'
 http GET http://127.0.0.1:8000/api/users/1/ 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g'
@@ -77,5 +76,3 @@ curl -H "Authorization: JWT  *access token*" http://127.0.0.1:8000/api/v1/users/
 Token refreshing:
 curl -X POST -d "refresh=*refresh token*" http://127.0.0.1:8000/api/v1/auth/token/refresh/
 
-
-eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTg4MTgwMDIxLCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg4MDA3MjIxfQ.7kJhJ4xAa6kKaxZ-urdoVNtKtX_CLg75_wQ5C8WwGug

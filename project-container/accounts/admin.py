@@ -23,6 +23,14 @@ class UserLoginActivityLogAdmin(admin.ModelAdmin):
         model = UserLoginActivityLog
 
 
+class UserRequestActivityLogAdmin(admin.ModelAdmin):
+    list_display = ['user', 'last_request_datetime', 'request_method', 'path_info']
+    search_fields = ["user", "request_method"]
+
+    class Meta:
+        model = UserLoginActivityLog
+
+
 admin.site.register(UserLoginActivityLog, UserLoginActivityLogAdmin)
-# admin.site.register(UserRequestActivityLog)
+admin.site.register(UserRequestActivityLog,UserRequestActivityLogAdmin)
 

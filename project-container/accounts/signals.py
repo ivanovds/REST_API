@@ -14,16 +14,20 @@ JWT_AUTH_HEADER_PREFIX = JWT_AUTH['JWT_AUTH_HEADER_PREFIX']
 
 @receiver(request_started)
 def log_last_request_datetime(sender, environ, **kwargs):
-    print(environ)
-    if JWT_AUTH_HEADER_PREFIX in environ['HTTP_AUTHORIZATION']:
-        token = environ['HTTP_AUTHORIZATION'].split(' ')[-1]
-        try:
-            payload = jwt_decode_handler(token)
-            last_request_datetime, created = UserRequestActivityLog.objects.update_or_create(
-                user=User.objects.get(username=payload['username']),
-            )
-        except Exception as e:
-            logging.error("log_last_request_datetime: %s" % e)
+    if 'HTTP_AUTHORIZATION' in environ:
+        if JWT_AUTH_HEADER_PREFIX in environ['HTTP_AUTHORIZATION']:
+            token = environ['HTTP_AUTHORIZATION'].split(' ')[-1]
+            try:
+                payload = jwt_decode_handler(token)
+                last_request_datetime, created = UserRequestActivityLog.objects.update_or_create(
+                    user=User.objects.get(username=payload['username']),
+                    defaults={
+                        'request_method': environ['REQUEST_METHOD'],
+                        'path_info': environ['PATH_INFO'],
+                    }
+                )
+            except Exception as e:
+                logging.error("log_last_request_datetime: %s" % e)
 
 
 @receiver(user_logged_in)
