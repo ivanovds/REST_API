@@ -25,7 +25,6 @@ http DELETE http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:JWT  eyJ0eXA
 http GET http://127.0.0.1:8000/api/posts/1/likes/ 'Authorization:JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJ1c2VyIiwiZXhwIjoxNTg4MTQ5NTM3LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg3OTc2NzM3fQ.pZJ1TU07BFTxS4xSCRS0XKri6EnFom0agP2h19qZ--g'
 
 
-
  ------------------------- Python Shell commands to interact with API: -------------------------
  py manage.py shell
 

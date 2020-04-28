@@ -1,3 +1,4 @@
+
 from rest_framework.decorators import (
     api_view,
     permission_classes,
@@ -24,3 +25,6 @@ def jwt_response_payload_handler(token, user=None, request=None):
         'token': token,
         'user': UserDetailSerializer(user, context={'request': request}).data
     }
+
+
+

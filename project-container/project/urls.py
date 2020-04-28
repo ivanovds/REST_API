@@ -7,11 +7,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_jwt.views import (
-    obtain_jwt_token,
-    refresh_jwt_token,
-)
-from .views import api_root
+from rest_framework_jwt.views import refresh_jwt_token
+from project.api.services import api_root
 from accounts.api.views import ObtainJWTView
 
 

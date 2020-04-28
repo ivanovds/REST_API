@@ -22,8 +22,8 @@ def log_last_request_datetime(sender, environ, **kwargs):
                 last_request_datetime, created = UserRequestActivityLog.objects.update_or_create(
                     user=User.objects.get(username=payload['username']),
                     defaults={
-                        'request_method': environ['REQUEST_METHOD'],
-                        'path_info': environ['PATH_INFO'],
+                        'request_method': environ.get('REQUEST_METHOD', '<unknown>')[:255],
+                        'path_info': environ.get('PATH_INFO', '<unknown>')[:255],
                     }
                 )
             except Exception as e:
@@ -32,6 +32,7 @@ def log_last_request_datetime(sender, environ, **kwargs):
 
 @receiver(user_logged_in)
 def log_user_logged_in_success(sender, user, request, **kwargs):
+    print(type(request.META))
     try:
         user_agent_info = request.META.get('HTTP_USER_AGENT', '<unknown>')[:255],
         user_login_activity_log, created = UserLoginActivityLog.objects.update_or_create(
@@ -46,6 +47,10 @@ def log_user_logged_in_success(sender, user, request, **kwargs):
         )
         last_request_datetime, created = UserRequestActivityLog.objects.update_or_create(
             user=user,
+            defaults={
+                'request_method': request.META.get('REQUEST_METHOD', '<unknown>')[:255],
+                'path_info': request.META.get('PATH_INFO', '<unknown>')[:255],
+            }
         )
     except Exception as e:
         logging.error("log_user_logged_in request: %s, error: %s" % (request, e))

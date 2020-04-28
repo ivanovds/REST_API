@@ -1,23 +1,56 @@
+from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, user_logged_in
 from rest_framework_jwt.serializers import (
     JSONWebTokenSerializer,
     jwt_payload_handler,
     jwt_encode_handler,
-
 )
-
+from rest_framework.serializers import DateTimeField
 from rest_framework.serializers import (
     ModelSerializer,
     CharField,
     ValidationError,
-    StringRelatedField,
+)
+from accounts.models import (
+    UserLoginActivityLog,
+    UserRequestActivityLog
 )
 
 
+class DateTimeFieldWihTZ(DateTimeField):
+    """Class to make output of a DateTime Field timezone aware"""
+    def to_representation(self, value):
+        value = timezone.localtime(value)
+        return super(DateTimeFieldWihTZ, self).to_representation(value)
+
+
+class UserLoginActivityLogSerializer(ModelSerializer):
+    login_datetime = DateTimeFieldWihTZ(format='%Y-%m-%d %H:%M:%S')
+
+    class Meta:
+        model = UserLoginActivityLog
+        fields = [
+            'status',
+            'login_datetime',
+        ]
+
+
+class UserRequestActivityLogSerializer(ModelSerializer):
+    last_request_datetime = DateTimeFieldWihTZ(format='%Y-%m-%d %H:%M:%S')
+
+    class Meta:
+        model = UserRequestActivityLog
+        fields = [
+            'last_request_datetime',
+            'request_method',
+            'path_info',
+        ]
+
+
 class UserDetailSerializer(ModelSerializer):
-    login_activity = StringRelatedField(many=True)
-    request_activity = StringRelatedField(many=True)
+    login_activity = UserLoginActivityLogSerializer(many=True, read_only=True)
+    request_activity = UserRequestActivityLogSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
@@ -32,6 +65,7 @@ class UserDetailSerializer(ModelSerializer):
 class UserListCreateSerializer(ModelSerializer):
     password = CharField(min_length=6, max_length=100, write_only=True)
     confirm_password = CharField(min_length=6, max_length=100, write_only=True)
+    last_login = DateTimeFieldWihTZ(format='%Y-%m-%d %H:%M:%S')
 
     class Meta:
         model = User

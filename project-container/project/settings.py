@@ -145,11 +145,13 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
 
     ),
+    # 'DATETIME_FORMAT': '%Y-%m-%d %H:%M:%S',
+    'DATETIME_FORMAT': '%Y-%m-%d %H:%M',
 }
 
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER':
-    'project.views.jwt_response_payload_handler',
+    'project.api.services.jwt_response_payload_handler',
 
     'JWT_EXPIRATION_DELTA': timedelta(days=2),
 
