@@ -20,6 +20,7 @@ from accounts.models import (
 
 class DateTimeFieldWihTZ(DateTimeField):
     """Class to make output of a DateTime Field timezone aware"""
+
     def to_representation(self, value):
         value = timezone.localtime(value)
         return super(DateTimeFieldWihTZ, self).to_representation(value)
@@ -63,9 +64,9 @@ class UserDetailSerializer(ModelSerializer):
 
 
 class UserListCreateSerializer(ModelSerializer):
-    password = CharField(min_length=6, max_length=100, write_only=True)
+    password = CharField(min_length=8, max_length=100, write_only=True)
     confirm_password = CharField(min_length=6, max_length=100, write_only=True)
-    last_login = DateTimeFieldWihTZ(format='%Y-%m-%d %H:%M:%S')
+    last_login = DateTimeFieldWihTZ(format='%Y-%m-%d %H:%M:%S', read_only=True)
 
     class Meta:
         model = User
@@ -76,9 +77,6 @@ class UserListCreateSerializer(ModelSerializer):
             'confirm_password',
             'last_login'
         ]
-        extra_kwargs = {
-            "last_login": {"read_only": True},
-        }
 
     def validate_confirm_password(self, value):
         data = self.get_initial()

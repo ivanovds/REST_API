@@ -32,7 +32,6 @@ def log_last_request_datetime(sender, environ, **kwargs):
 
 @receiver(user_logged_in)
 def log_user_logged_in_success(sender, user, request, **kwargs):
-    print(type(request.META))
     try:
         user_agent_info = request.META.get('HTTP_USER_AGENT', '<unknown>')[:255],
         user_login_activity_log, created = UserLoginActivityLog.objects.update_or_create(
@@ -79,3 +78,30 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+
+def generate_content(users):
+    """ Generates and saves content for every user.
+
+    Approximate generation speed: 2 records per second.
+    """
+    url = "https://joke3.p.rapidapi.com/v1/joke"
+
+    headers = {
+        'x-rapidapi-host': "joke3.p.rapidapi.com",
+        'x-rapidapi-key': "eb6a10647bmshcf2bcc27d833802p1bcd8cjsn2a00ea66b68f"
+    }
+
+    content_list = list()
+
+    print("Please wait, the content are being generated...")
+
+    for user in users:
+        posts_amount = user['posts_to_create']
+        while posts_amount:
+            posts_amount -= 1
+
+            response = requests.request("GET", url, headers=headers)
+            user['content'] = content_list.append(response.json()['content'])
+
+    return users

@@ -8,7 +8,7 @@ from likes import services
 
 
 class PostSerializer(ModelSerializer):
-    user = ReadOnlyField(source='user.username')  # restricts to override this field via updating
+    user = ReadOnlyField(source='user.username')
     is_fan = SerializerMethodField()
 
     class Meta:
@@ -18,7 +18,6 @@ class PostSerializer(ModelSerializer):
             'user',
             'content',
             'image',
-            'publish',
             'total_likes',
             'is_fan'
         ]

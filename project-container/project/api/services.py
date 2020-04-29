@@ -12,7 +12,7 @@ from accounts.api.serializers import UserDetailSerializer
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def api_root(request, format=None):
-
+    """Root view to navigate the API."""
     return Response({
         'users': reverse('user-list-api', request=request, format=format),
         'posts': reverse('post-list-api', request=request, format=format),

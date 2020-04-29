@@ -27,7 +27,6 @@ class Post(models.Model):
                               width_field="width_field",
                               height_field="height_field",
                               )
-    publish = models.DateField(auto_now=False, auto_now_add=False, blank=False)
     width_field = models.IntegerField(null=True, default=0)
     height_field = models.IntegerField(null=True, default=0)
     likes = GenericRelation(Like)
@@ -43,4 +42,4 @@ class Post(models.Model):
         return self.likes.count()
 
     class Meta:
-        ordering = ["-publish"]
+        ordering = ["-timestamp"]

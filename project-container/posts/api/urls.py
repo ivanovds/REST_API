@@ -1,8 +1,6 @@
 """Posts API URL Configuration
 
 """
-
-from rest_framework.routers import DefaultRouter
 from django.urls import path
 from .views import PostViewSet
 
@@ -16,8 +14,3 @@ urlpatterns = [
         'delete': 'unlike'}),
          name='post-fans-api'),
 ]
-
-# router = DefaultRouter()
-# router.register(r'', PostViewSet)
-#
-# urlpatterns = router.urls

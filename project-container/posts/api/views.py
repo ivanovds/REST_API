@@ -19,9 +19,8 @@ class PostViewSet(LikeMixin, ModelViewSet):
     permission_classes = [IsAuthenticated]
     # permission_classes = [AllowAny]
     serializer_class = PostSerializer
-    queryset = Post.objects.filter(publish__lte=timezone.now())
+    queryset = Post.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
 
