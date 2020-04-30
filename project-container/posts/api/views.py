@@ -16,8 +16,8 @@ from posts.models import Post
 
 
 class PostViewSet(LikeMixin, ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 

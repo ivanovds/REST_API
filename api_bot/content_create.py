@@ -1,19 +1,18 @@
 import requests
 import random
+import json
 
-NUMBER_OF_USERS = 3
-MAX_POSTS_PER_USER = 10
+NUMBER_OF_USERS = 10
+MAX_POSTS_PER_USER = 5
 MAX_LIKES_PER_USER = 10
 SIGN_UP_URL = 'http://127.0.0.1:8000/api/users/'
 SIGN_IN_URL = 'http://127.0.0.1:8000/api/auth/token/'
-CREATE_POST_URL = 'http://127.0.0.1:8000/api/posts/'
-CREATE_LIKE_URL = 'http://127.0.0.1:8000/api/likes/'
-
+POSTS_URL = 'http://127.0.0.1:8000/api/posts/'
 
 
 
 def generate_user(users_amount=NUMBER_OF_USERS, pwlen=12):
-	""" Generates list of users with usernames and passwords 
+	"""Generates list of users with usernames and passwords 
 	using an API from https://rapidapi.com/
 
 	users_amount - amount of users to generate
@@ -45,6 +44,9 @@ def generate_user(users_amount=NUMBER_OF_USERS, pwlen=12):
 				'account_created': False,
 				'posts_to_create': 0,
 				'posts_created': 0,
+				'likes_to_create': 0,
+				'likes_created': 0,
+
 				})
 
 	return users
@@ -74,12 +76,18 @@ def create_account(users, url=SIGN_UP_URL):
 
 
 
-def generate_posts_amount(users, max_posts_per_user=MAX_POSTS_PER_USER):
+def generate_posts_amount(users, max_posts=MAX_POSTS_PER_USER):
 	"""Generates random posts_to_create for every user to create."""
-	print("Please wait, random posts_to_create are being generated...")
-
 	for user in users:
-		user['posts_to_create'] = random.randint(0, max_posts_per_user)
+		user['posts_to_create'] = random.randint(1, max_posts)
+
+	return users
+
+
+def generate_likes_amount(users, max_likes=MAX_LIKES_PER_USER):
+	"""Generates random likes_to_create for every user to create."""
+	for user in users:
+		user['likes_to_create'] = random.randint(1, max_likes)
 
 	return users
 
@@ -87,7 +95,9 @@ def generate_posts_amount(users, max_posts_per_user=MAX_POSTS_PER_USER):
 
 def generate_content(users):
     """ Generates and saves content for every user. 
-
+	
+	Uses Jokes API from rapidapi.com, that is why generating may
+	take a long time.
     Approximate generation speed: 2 records per second.
     """
     url = "https://joke3.p.rapidapi.com/v1/joke"
@@ -97,19 +107,32 @@ def generate_content(users):
         'x-rapidapi-key': "eb6a10647bmshcf2bcc27d833802p1bcd8cjsn2a00ea66b68f"
     }
 
-    # content_list = list()
 
     print("Please wait, the content are being generated...")
 
     for user in users:
-        posts_amount = user['posts_to_create']
-        while posts_amount:
-            posts_amount -= 1
+        for i in range(user['posts_to_create']):
 
             response = requests.request("GET", url, headers=headers)
             user['content'].append(response.json()['content'])
     
     return users
+
+
+def generate_simple_content(users):
+	""" Generates and saves content for every user.
+
+	Generates simple content based on username.
+	Thats is why it works faster then generate_content method.
+	"""
+	print("Please wait, simple content are being generated...")
+
+	for user in users:
+		for i in range(user['posts_to_create']):
+			content = 'Content' + ' №' + str(i) + ' of user: ' + user['username']
+			user['content'].append(content)
+
+
 
 
 
@@ -134,8 +157,9 @@ def get_token(users, url=SIGN_IN_URL):
 
 
 
-def create_post(users, url=CREATE_POST_URL):
+def create_post(users, url=POSTS_URL):
 	"""Creates posts for every user up to max_posts_per_user."""
+	print("Please wait, posts are being created...")
 
 	for user in users:
 		for i in range(user['posts_to_create']):
@@ -155,48 +179,77 @@ def create_post(users, url=CREATE_POST_URL):
 
 
 
-# def create_like(users, url=CREATE_LIKE_URL, max_likes_per_user=MAX_LIKES_PER_USER):
-# 	"""Creates likes of random posts up to max_likes_per_user."""
 
-# 	likes_to_create = random.randint(0, max_likes_per_user)
+def get_post(user, url=POSTS_URL):
+	"""Returns all existing posts in the Data Base."""
+	response = requests.get(url, headers={'Authorization': user['token']})
+	posts = response.json()
 
-# 	for user in users:
-# 		for i in range(user['posts_to_create']):
+	return posts
 
-# 			response = requests.post(url, headers={'Authorization': user['token']})	
+
+
+def get_like_url(post_id):
+	"""Returns an url of likes endpoint for current post."""
+	url = 'http://127.0.0.1:8000/api/posts/' + str(post_id) + '/likes/'
+
+	return url
+
+
+
+def create_random_likes(users, posts):
+	"""Creates likes of random posts up to max_likes."""
+	print("Please wait, random likes are being created...")
+
+	for user in users:
+		for i in range(user['likes_to_create']):
+			random_post_id = posts[random.randint(1, (len(posts)-1))]['id']
+			url = get_like_url(random_post_id)
+
+			response = requests.post(url, headers={'Authorization': user['token']})
+
+			if response.status_code == 200:
+				user['likes_created'] += 1 
+
+	return users
+
 
 
 
 
 users = generate_user()
 print(users)
-print("---------------------------------------------------------------------------")
+print("-----------------------------------------------------------------------")
 
-print(create_account(users))
-print("---------------------------------------------------------------------------")
+create_account(users)
 
-print(generate_posts_amount(users))
-print("---------------------------------------------------------------------------")
+generate_posts_amount(users)
+generate_likes_amount(users)
 
-print(generate_content(users))
-print("---------------------------------------------------------------------------")
+# generate_content(users) # slow generating
+generate_simple_content(users) # fast generating
 
-print(get_token(users))
-print("---------------------------------------------------------------------------")
+get_token(users)
 
-print(create_post(users))
-print("---------------------------------------------------------------------------")
+create_post(users)
 
-# print(create_like(users))
-# print("---------------------------------------------------------------------------")
+posts = get_post(users[0])
+
+create_random_likes(users, posts)
 
 
-
+print("-----------------------------------------------------------------------")
+num = 1
 for user in users:
+	print("User №", num)
+	num+=1
 	print(user)
-	print("##################")
+	print("-----------------------------------------------------------------------")
 
 
+# saving created users to the file
+with open('users_file.txt', 'w') as filehandle:
+	json.dump(users, filehandle)
 
 
 
