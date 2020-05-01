@@ -1,9 +1,4 @@
-"""Like Models
-
-A model is the single, definitive source of information about your data.
-It contains the essential fields and behaviors of the data you’re storing.
-Generally, each model maps to a single database table.
-"""
+"""Like Models"""
 
 from django.db import models
 from django.conf import settings
@@ -12,7 +7,12 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 
 class Like(models.Model):
-    """Creates a  model Like"""
+    """Creates a  model Like
+
+    Like is based on the ContentType framework built into Django. The ContentType provides a
+    GenericForeignKey relationship that creates generic relationships between models.
+    For comparison, a regular ForeignKey creates a relationship only with a particular model.
+    """
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              related_name='likes',
                              on_delete=models.CASCADE)

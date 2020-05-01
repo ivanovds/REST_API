@@ -1,10 +1,4 @@
-"""Post Models
-
-A model is the single, definitive source of information about your data.
-It contains the essential fields and behaviors of the data you’re storing.
-Generally, each model maps to a single database table.
-"""
-
+"""Post Models"""
 
 from django.db import models
 from django.conf import settings
@@ -18,7 +12,6 @@ def upload_location(instance, filename):
 
 
 class Post(models.Model):
-    """Creates a model Post"""
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     content = models.TextField(null=True, blank=True)

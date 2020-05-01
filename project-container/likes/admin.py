@@ -8,9 +8,7 @@ and get a feel for whether you have the right data.
 
 
 from django.contrib import admin
-from .models import (
-    Like
-)
+from .models import Like
 
 
 class PostLikeModelAdmin(admin.ModelAdmin):

@@ -63,6 +63,15 @@ class UserDetailSerializer(ModelSerializer):
         ]
 
 
+class FanDetailSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'username',
+        ]
+
+
 class UserListCreateSerializer(ModelSerializer):
     password = CharField(min_length=8, max_length=100, write_only=True)
     confirm_password = CharField(min_length=6, max_length=100, write_only=True)
@@ -95,6 +104,8 @@ class UserListCreateSerializer(ModelSerializer):
 
 
 class JWTSerializer(JSONWebTokenSerializer):
+    """Overrides default serializer to send 'user_logged_in' signal."""
+
     def validate(self, attrs):
         credentials = {
             self.username_field: attrs.get(self.username_field),
@@ -110,6 +121,7 @@ class JWTSerializer(JSONWebTokenSerializer):
                     raise ValidationError(msg)
 
                 payload = jwt_payload_handler(user)
+                # sending 'user_logged_in' signal:
                 user_logged_in.send(sender=user.__class__, request=self.context['request'], user=user)
 
                 return {

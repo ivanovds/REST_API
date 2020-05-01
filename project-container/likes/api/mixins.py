@@ -1,20 +1,11 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from likes import services
-from accounts.api.serializers import UserDetailSerializer
-from rest_framework.viewsets import ViewSet
-from rest_framework.permissions import (
-    IsAuthenticated,
-    AllowAny
-)
+from accounts.api.serializers import FanDetailSerializer
 
 
 class LikeMixin(object):
-    """
-       Apply this mixin to any view or viewset to add a like-unlike logic.
-    """
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]
+    """Apply this mixin to any view or viewset to add a like-unlike logic."""
 
     @action(methods=['POST'], detail=True)
     def like(self, request, pk=None):
@@ -32,5 +23,5 @@ class LikeMixin(object):
     def fans(self, request, pk=None):
         obj = self.get_object()
         fans = services.get_fans(obj)
-        serializer = UserDetailSerializer(fans, many=True)
+        serializer = FanDetailSerializer(fans, many=True)
         return Response(serializer.data)

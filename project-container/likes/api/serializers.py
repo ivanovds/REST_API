@@ -28,9 +28,4 @@ class LikeAnalyticsSerializer(Serializer):
     date = DateField()
     likes_amount = IntegerField()
 
-    def create(self, validated_data):
-        pass
-
-    def update(self, instance, validated_data):
-        pass
 

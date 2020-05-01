@@ -1,3 +1,8 @@
+"""Signal handling code.
+
+Handle signals to save user`s activity information.
+"""
+
 import logging
 from django.utils import timezone
 from django.core.signals import request_started

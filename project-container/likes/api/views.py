@@ -3,18 +3,11 @@ from django_filters.rest_framework import (
     FilterSet,
     DateFilter,
 )
-from rest_framework.permissions import (
-    IsAuthenticated,
-    AllowAny
-)
 from django.db.models.functions import TruncDay
 from django.db.models import Count, DateField
 from rest_framework.generics import ListAPIView
 
-from .serializers import (
-    LikeSerializer,
-    LikeAnalyticsSerializer
-)
+from .serializers import LikeAnalyticsSerializer
 from likes.models import Like
 
 
@@ -34,8 +27,6 @@ class LikeAPIView(ListAPIView):
 
       Example url/api/analytics/?date_from=2020-02-02&date_to=2020-02-15
     """
-    permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
     serializer_class = LikeAnalyticsSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = LikeFilter

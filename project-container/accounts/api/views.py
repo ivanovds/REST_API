@@ -3,10 +3,7 @@ from rest_framework.generics import (
     ListCreateAPIView,
 )
 from django.contrib.auth.models import User
-from rest_framework.permissions import (
-    IsAuthenticated,
-    AllowAny
-)
+from rest_framework.permissions import AllowAny
 from rest_framework_jwt.views import ObtainJSONWebToken
 
 from .serializers import (
@@ -14,11 +11,10 @@ from .serializers import (
     UserListCreateSerializer,
     JWTSerializer,
 )
-from .permissions import IsAuthenticatedOrWriteOnly
 
 
 class UserListCreateAPIView(ListCreateAPIView):
-    """Endpoint to get a list of all users or
+    """This view allows to get a list of all users or
     to create a new one.
 
     Username requirements:
@@ -30,19 +26,22 @@ class UserListCreateAPIView(ListCreateAPIView):
     Your password can’t be a commonly used password.
     Your password can’t be entirely numeric.
     """
-
     queryset = User.objects.all()
     serializer_class = UserListCreateSerializer
-    # permission_classes = [IsAuthenticatedOrWriteOnly]
     permission_classes = [AllowAny]
+
 
 
 class UserDetailAPIView(RetrieveAPIView):
+    """Endpoint with user`s detail information."""
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
-    # permission_classes = [IsAuthenticatedOrWriteOnly]
-    permission_classes = [AllowAny]
 
 
 class ObtainJWTView(ObtainJSONWebToken):
+    """You can use the returned access token to prove authentication for a protected views.
+
+    When this short-lived access token expires, you can use the longer-lived refresh token
+    to obtain another access token via 'refresh_token_url'.
+    """
     serializer_class = JWTSerializer
