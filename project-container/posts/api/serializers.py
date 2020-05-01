@@ -26,3 +26,4 @@ class PostSerializer(ModelSerializer):
 
         user = self.context.get('request').user
         return services.is_fan(obj, user)
+

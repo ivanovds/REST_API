@@ -332,8 +332,6 @@ def main_tests():
 		print(user)
 		print("---------------------------------------")
 
-	print("#######################################")
-
 	# saving created users to the file
 	with open('users_file.txt', 'w') as filehandle:
 		json.dump(users, filehandle)
@@ -344,14 +342,14 @@ def other_tests():
 		users = json.load(filehandle)
 	
 	user = users[0]
-	jwt_token = user['token']
+	jwt_token = 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTg4NDM0OTIwLCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNTg4MzQ4NTIwfQ.F9xLdOf4_17tDqwjnJKu4eXFSzhhEwKuTlmPKFlMXOE'
 	user_id = 11
 	post_id = 1
 	date_from = '2020-04-25'
 	date_to = '2020-04-30'
 
-	print("---------- List of users: ----------")
-	print(get_last_users(jwt_token))
+	# print("---------- List of users: ----------")
+	# print(get_last_users(jwt_token))
 
 	print(f"---------- Information about user №{user_id}: ----------")
 	print(get_user_activity_by_id(jwt_token, user_id))
@@ -374,24 +372,6 @@ def other_tests():
 	print(f"---------- Likes of post №{post_id}: ----------")
 	print(get_last_post_fans(jwt_token, post_id))
 
-	print("---------- Analytics of likes: ----------")
-	print(get_analytics(jwt_token))
 
-	print(f"---------- Analytics from {date_from} to {date_to}: ----------")
-	print(get_analytics(jwt_token, date_from, date_to))
-	
-	print("---------- Old access token: ----------")
-	print(jwt_token)
-
-	print("---------- New access token: ----------")
-	refresh_token(user)
-	new_jwt_token = user['token']
-	print(new_jwt_token)
-
-	print("---------- Checking of new access token: ----------")
-	print(get_post_by_id(new_jwt_token, post_id))
-
-
-main_tests()
-
+# main_tests()
 other_tests()

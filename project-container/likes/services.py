@@ -2,14 +2,21 @@
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+from rest_framework.exceptions import Throttled
 from .models import Like
+MAX_LIKES_PER_USER = 20
 
 
 def add_like(obj, user):
-
     obj_type = ContentType.objects.get_for_model(obj)
-    like, is_created = Like.objects.get_or_create(
-        content_type=obj_type, object_id=obj.id, user=user)
+
+    like_count = Like.objects.filter(user=user).count()
+    if like_count >= MAX_LIKES_PER_USER:
+        msg = "You have reached the limit of likes per user."
+        raise Throttled(wait=None, detail=msg, code=None)
+    else:
+        like, is_created = Like.objects.get_or_create(
+            content_type=obj_type, object_id=obj.id, user=user)
     return like
 
 

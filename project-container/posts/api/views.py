@@ -1,8 +1,10 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.exceptions import Throttled
 from likes.api.mixins import LikeMixin
 from .serializers import PostSerializer
 from posts.models import Post
+MAX_POSTS_PER_USER = 10
 
 
 class PostViewSet(LikeMixin, ModelViewSet):
@@ -23,5 +25,10 @@ class PostViewSet(LikeMixin, ModelViewSet):
     queryset = Post.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        post_count = Post.objects.filter(user=self.request.user).count()
+        if post_count >= MAX_POSTS_PER_USER:
+            msg = "You have reached the limit of posts per user."
+            raise Throttled(wait=None, detail=msg, code=None)
+        else:
+            serializer.save(user=self.request.user)
 
