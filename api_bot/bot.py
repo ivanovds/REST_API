@@ -332,8 +332,6 @@ def main_tests():
 		print(user)
 		print("---------------------------------------")
 
-	print("#######################################")
-
 	# saving created users to the file
 	with open('users_file.txt', 'w') as filehandle:
 		json.dump(users, filehandle)
@@ -349,9 +347,6 @@ def other_tests():
 	post_id = 1
 	date_from = '2020-04-25'
 	date_to = '2020-04-30'
-
-	print("---------- List of users: ----------")
-	print(get_last_users(jwt_token))
 
 	print(f"---------- Information about user №{user_id}: ----------")
 	print(get_user_activity_by_id(jwt_token, user_id))

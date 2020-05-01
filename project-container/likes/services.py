@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.exceptions import Throttled
 from .models import Like
-MAX_LIKES_PER_USER = 20
+MAX_LIKES_PER_USER = 30
 
 
 def add_like(obj, user):

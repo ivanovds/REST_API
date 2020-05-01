@@ -48,12 +48,9 @@ def jwt_response_payload_handler(token, user=None, request=None, format=None):
 def api_config(request):
     """API configuration for bots."""
     return Response({
-        # 'number_of_users': 15,
-        'number_of_users': 2,
-        # 'max_posts_per_user': 10,
-        'max_posts_per_user': 2,
-        # 'max_likes_per_user': 20,
-        'max_likes_per_user': 3,
+        'number_of_users': 10,
+        'max_posts_per_user': 10,
+        'max_likes_per_user': 30,
         'users_url': 'http://127.0.0.1:8000/api/users/',
         'posts_url': 'http://127.0.0.1:8000/api/posts/',
         'get_token_url': 'http://127.0.0.1:8000/api/auth/token/',
