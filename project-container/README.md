@@ -36,6 +36,7 @@ py -m venv venv
 ```
 
 * Switch your virtal environment in the terminal:
+
 On macOS and Linux:
 ```bash
 source venv/bin/activate
