@@ -46,9 +46,6 @@ On Windows:
 venv\Scripts\activate
 ```
 
-* Go to File -> Settings -> Project Interpreter -> 
-add interpreter: path_to_project\project-container\project-container\venv\Scripts\python.exe 
-
 * Then install all packages you need.
 
 All requirements are stored in requirements.txt.
