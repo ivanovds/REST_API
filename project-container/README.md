@@ -35,7 +35,15 @@ On Windows:
 py -m venv venv
 ```
 
-* Switch your virtal environment in the terminal
+* Switch your virtal environment in the terminal:
+On macOS and Linux:
+```bash
+source venv/bin/activate
+```
+On Windows:
+```bash
+venv\Scripts\activate
+```
 
 * Go to File -> Settings -> Project Interpreter -> 
 add interpreter: path_to_project\project-container\project-container\venv\Scripts\python.exe 
