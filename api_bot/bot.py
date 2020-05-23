@@ -2,7 +2,7 @@ import requests
 import random
 import json
 
-CONFIG = requests.get('http://127.0.0.1:8000/api/config/').json()
+CONFIG = requests.get('http://127.0.0.1:8000/api/v1/config/').json()
 
 NUMBER_OF_USERS = CONFIG['number_of_users']
 MAX_POSTS_PER_USER = CONFIG['max_posts_per_user']
@@ -12,6 +12,7 @@ GET_TOKEN_URL = CONFIG['get_token_url']
 REFRESH_TOKEN_URL = CONFIG['refresh_token_url']
 POSTS_URL = CONFIG['posts_url']
 ANALYTICS_URL = CONFIG['analytics_url']
+FAST_CONTENT_GENERATION = True
 
 
 
@@ -188,7 +189,7 @@ def get_last_posts(jwt_token, url=POSTS_URL):
 
 def get_like_url(post_id):
 	"""Returns an url of likes endpoint for current post."""
-	url = 'http://127.0.0.1:8000/api/posts/' + str(post_id) + '/likes/'
+	url = POSTS_URL + str(post_id) + '/likes/'
 
 	return url
 
@@ -313,8 +314,10 @@ def main_tests():
 	generate_posts_amount(users)
 	generate_likes_amount(users)
 
-	# generate_content(users) # slow generating
-	generate_simple_content(users) # fast generating
+	if FAST_CONTENT_GENERATION:
+		generate_simple_content(users) # fast generating
+	else:
+		generate_content(users) # slow generating
 
 	get_tokens(users)
 
@@ -345,8 +348,8 @@ def other_tests():
 	jwt_token = user['token']
 	user_id = 11
 	post_id = 1
-	date_from = '2020-04-25'
-	date_to = '2020-04-30'
+	date_from = '2020-04-23'
+	date_to = '2020-05-23'
 
 	print(f"---------- Information about user №{user_id}: ----------")
 	print(get_user_activity_by_id(jwt_token, user_id))

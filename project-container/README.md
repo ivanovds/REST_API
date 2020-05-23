@@ -4,7 +4,10 @@ REST API that allows you to interact with Social Network.
 It is entirely self describing: you can find the documentation
 for each API endpoint simply by visiting the URL in your browser.
 
-API using JSON Web Authentication. 
+## Project features
+* API using JSON Web Authentication
+* Model "Like" uses ContentType framework that provides generic relationships between models
+
 
 ## Using this API you can:
 * Create account
@@ -24,6 +27,22 @@ API using JSON Web Authentication.
 * Django REST Framework JWT 1.11.0
 
 ## Installation
+
+* Clone repository:
+```bash
+git clone https://github.com/ivanovds/REST_API
+```
+
+* Go to the project folder:
+```bash
+cd project-container
+```
+
+* Create environment variables file:
+```bash
+cp project/api/env.example project/api/.env
+```
+
 * Create a virtual environment:
 
 On macOS and Linux:
@@ -62,7 +81,7 @@ pip install -r requirements.txt
 ```bash
 py manage.py runserver
 ```
-and visit http://127.0.0.1:8000/api/ 
+and visit http://127.0.0.1:8000/api/v1/ 
 
 
 ## Documentation
@@ -97,6 +116,18 @@ To prove authentication for a protected views you can use:
 * [python requests](https://requests.readthedocs.io/en/master/)
 * [httpie](https://httpie.org/)
 * [postman](https://www.postman.com/)
+
+####For example:
+```bash
+import requests
+import json
+
+url='http://127.0.0.1:8000/api/v1/posts/' 
+jwt_token = 'JWT <your token>'
+response = requests.get(url, headers={'Authorization': jwt_token})
+posts = response.json()['results']
+print(posts)
+```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

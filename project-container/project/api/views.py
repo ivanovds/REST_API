@@ -1,4 +1,3 @@
-
 from rest_framework.decorators import (
     api_view,
     permission_classes,
@@ -7,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.permissions import AllowAny
 from accounts.api.serializers import UserDetailSerializer
+from project.api.api_settings import env
 
 
 @api_view(['GET'])
@@ -48,14 +48,14 @@ def jwt_response_payload_handler(token, user=None, request=None, format=None):
 def api_config(request):
     """API configuration for bots."""
     return Response({
-        'number_of_users': 10,
-        'max_posts_per_user': 10,
-        'max_likes_per_user': 30,
-        'users_url': 'http://127.0.0.1:8000/api/users/',
-        'posts_url': 'http://127.0.0.1:8000/api/posts/',
-        'get_token_url': 'http://127.0.0.1:8000/api/auth/token/',
-        'refresh_token_url': 'http://127.0.0.1:8000/api/auth/token/refresh/',
-        'analytics_url': 'http://127.0.0.1:8000/api/analytics/',
+        'number_of_users': env('NUMBER_OF_USERS'),
+        'max_posts_per_user': env('MAX_POSTS_PER_USER'),
+        'max_likes_per_user': env('MAX_LIKES_PER_USER'),
+        'users_url': env('USERS_URL'),
+        'posts_url': env('POSTS_URL'),
+        'get_token_url': env('GET_TOKEN_URL'),
+        'refresh_token_url': env('REFRESH_TOKEN_URL'),
+        'analytics_url': env('ANALYTICS_URL'),
     })
 
 

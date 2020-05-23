@@ -23,7 +23,7 @@ apipatterns = [
 ]
 
 urlpatterns = [
-    path('api/', include(apipatterns), name='api'),
+    path('api/v1/', include(apipatterns), name='api'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,5 +1,3 @@
-from datetime import date
-from django.db import models
 from rest_framework.serializers import (
     Serializer,
     ModelSerializer,

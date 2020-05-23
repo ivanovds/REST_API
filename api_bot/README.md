@@ -5,8 +5,11 @@ Automated bot to interact with [Social Network API](https://github.com/ivanovds/
 ## Basic functionality
 Bot reads the bot API configuration and create this activity:
 * signup users (number provided in config)
-* each user creates random number of posts with any content (up to
-max_posts_per_user)
+* each user creates random number of posts with any content up to
+max_posts_per_user. There are two options: 
+1) slow content generation using Jokes API from rapidapi.com
+2) fast generation of simple content based on username
+
 * After creating the signup and posting activity, posts should be liked randomly, posts
 can be liked multiple times
 

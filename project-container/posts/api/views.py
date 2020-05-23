@@ -4,7 +4,7 @@ from rest_framework.exceptions import Throttled
 from likes.api.mixins import LikeMixin
 from .serializers import PostSerializer
 from posts.models import Post
-MAX_POSTS_PER_USER = 10
+from project.api.api_settings import env
 
 
 class PostViewSet(LikeMixin, ModelViewSet):
@@ -26,7 +26,7 @@ class PostViewSet(LikeMixin, ModelViewSet):
 
     def perform_create(self, serializer):
         post_count = Post.objects.filter(user=self.request.user).count()
-        if post_count >= MAX_POSTS_PER_USER:
+        if post_count >= env('MAX_POSTS_PER_USER'):
             msg = "You have reached the limit of posts per user."
             raise Throttled(wait=None, detail=msg, code=None)
         else:
