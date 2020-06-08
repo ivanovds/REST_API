@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.exceptions import Throttled
 from .models import Like
-from project.api.api_settings import env
+from rest_api.api.api_settings import env
 
 
 def add_like(obj, user):

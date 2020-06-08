@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_jwt.views import refresh_jwt_token, obtain_jwt_token
-from project.api.views import (
+from rest_api.api.views import (
     api_root,
     api_config
 )

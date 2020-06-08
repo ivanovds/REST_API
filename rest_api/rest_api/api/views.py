@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.permissions import AllowAny
 from accounts.api.serializers import UserDetailSerializer
-from project.api.api_settings import env
+from rest_api.api.api_settings import env
 
 
 @api_view(['GET'])

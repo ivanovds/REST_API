@@ -4,7 +4,7 @@ from rest_framework.exceptions import Throttled
 from likes.api.mixins import LikeMixin
 from .serializers import PostSerializer
 from posts.models import Post
-from project.api.api_settings import env
+from rest_api.api.api_settings import env
 
 
 class PostViewSet(LikeMixin, ModelViewSet):

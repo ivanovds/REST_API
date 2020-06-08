@@ -12,7 +12,7 @@ from rest_framework_jwt.serializers import jwt_decode_handler
 from django.contrib.auth.models import User
 
 from .models import UserLoginActivityLog, UserRequestActivityLog
-from project.settings import JWT_AUTH
+from rest_api.settings import JWT_AUTH
 
 JWT_AUTH_HEADER_PREFIX = JWT_AUTH['JWT_AUTH_HEADER_PREFIX']
 
